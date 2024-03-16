@@ -1,0 +1,100 @@
+import { Component, OnInit ,ElementRef, ViewChild} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/interface/product';
+import { ProductService } from 'src/app/services/product/product.service';
+import { RegisterObj } from 'src/app/interface/register';
+
+@Component({
+  selector: 'app-category-products',
+  templateUrl: './category-products.component.html',
+  styleUrls: ['./category-products.component.css']
+})
+export class CategoryProductsComponent implements OnInit {
+  products: any[] = [];
+  activateCategoryId: number = 0;
+  quantity:number=1;
+ 
+  ProductList: Product[] = [];
+
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params: any) => {
+      
+      this.activateCategoryId = params.id;
+      this.loadProducts();
+    });
+  }
+
+  loadProducts(): void {
+    this.productService.getProductsByCategoryId( this.activateCategoryId).subscribe({
+      next: (res) => {
+        this.products = res; // Assuming the response contains a 'data' property with the products
+      },
+      error: (error) => {
+        console.error('Error loading products:', error);
+        // You can handle the error here, for example, show a toast message using ToastrService
+      }
+    });
+  }
+  prod = {
+    productId: 0,
+    quantity: 1
+  };
+  registerObj: RegisterObj = {
+    custId: 0,
+    custName: '',
+    phoneNumber:0,
+    password: ''
+};
+customerId:number=0;
+localStorageId = localStorage.getItem('CusID') as string;
+intValue = parseInt(this.localStorageId);
+cusid = this.intValue;
+   addToCart(productId: number) {
+    this.customerId=this.registerObj.custId;
+    const addToCardObj = {
+      "cartId": 0,
+      "custId": this.intValue,
+      "productId": productId,
+      "quantity": this.prod.quantity ,
+      "addedDate": new Date()
+    };
+    if(this.customerId == this.intValue){
+      alert("Please Login");
+    }
+    else{
+    this.productService.addToCart(addToCardObj).subscribe({
+      next: (res) => {
+        if (res) {
+          alert('Product added to cart');
+        } else {
+          alert(res.message);
+        }
+      },
+      error: (error) => {
+        console.error('Error adding product to cart:', error);
+        // Handle error here
+      }
+    });
+  }
+}
+
+  getQuantity(product: any): number {
+    return product.quantity || 1;
+  }
+  
+  increment(product: any) {
+    if (!product.quantity) {
+      product.quantity = 1;
+    } else {
+      product.quantity++;
+    }
+  }
+
+  decrementQuantity(product: any) {
+    if (product.quantity && product.quantity > 1) {
+      product.quantity--;
+    }
+  }
+}

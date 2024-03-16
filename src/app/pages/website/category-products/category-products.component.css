@@ -1,0 +1,77 @@
+.star-rating {
+    display: inline-block;
+    font-size: 0; /* Prevent white space between inline-block elements */
+  }
+  
+  .star-rating input[type="radio"] {
+    display: none; /* Hide the radio buttons */
+  }
+  
+  .star-rating label {
+    font-size: 24px; /* Size of the stars */
+    cursor: pointer;
+    color: #ccc; /* Default color of the stars */
+  }
+  
+  .star-rating input[type="radio"]:checked ~ label {
+    color: gold; /* Color of the filled stars */
+  }
+
+  button:focus,
+input:focus{
+  outline: none;
+  box-shadow: none;
+}
+a,
+a:hover{
+  text-decoration: orange;
+}
+
+/*--------------------------*/
+.qty-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qty-container .input-qty{
+  text-align: center;
+  padding: 6px 20px;
+  border: 1px solid #d4d4d4;
+  max-width: 80px;
+}
+.qty-container .qty-btn-minus,
+.qty-container .qty-btn-plus{
+  border: 1px solid #d4d4d4;
+  padding: 10px 13px;
+  font-size: 10px;
+  height: 38px;
+  width: 38px;
+  transition: 0.3s;
+}
+.qty-container .qty-btn-plus{
+  margin-left: -1px;
+  background: #81c408;
+}
+.qty-container .qty-btn-minus{
+  margin-right: -1px;
+  background: #81c408;
+}
+
+
+/*---------------------------*/
+.btn-cornered,
+.input-cornered{
+  border-radius: 4px;
+}
+.btn-rounded{
+  border-radius: 50%;
+}
+.input-rounded{
+  border-radius: 50px;
+}
+.element-to-move {
+  float: right;
+}
+.mb-3{
+  width: 100%;
+}

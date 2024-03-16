@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-12">
+    <button type="button" id="add" class="btn btn-primary" (click)="openModel()">
+      Add Category
+    </button>
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Category</h4>
+            <button type="button" class="btn-close" (click)="closeModel()" data-bs-dismiss="modal"></button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <input type="text" class="form-control" id="textInput" placeholder="Enter text" [(ngModel)]="inputValue">
+          </div>
+    
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="insertCategory(0)" data-bs-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-danger" (click)="closeModel()" data-bs-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Sr No</th>
+          <th>Category Name</th>
+          <th>Action</th> 
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of CategoryList; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ category.categoryName }}</td>
+          <td> 
+            <button type="button" class="btn btn-primary btn-sm me-2" id="Edit" (click)="onEdit(category.categoryId,category.categoryName)">Edit</button>
+            <!-- Add your action buttons here -->
+            <button type="button" class="btn btn-primary btn-sm me-2" id="Edit" (click)="onDelete(category.categoryId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

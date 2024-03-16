@@ -1,0 +1,40 @@
+<div class="container-fluid">
+    <div class="container py-3">
+      <div class="text-center mx-auto" style="max-width: 1100px;">
+        <h1 class="display-4">Bestseller Products</h1>
+      </div>
+      <div class="row g-5">
+        <div class="col-lg-6 col-xl-4" *ngFor="let product of ProductList">
+          <div class="p-4 rounded bg-light">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <img [src]="product.imageUrl" class="img-fluid rounded-circle w-100" alt="">
+              </div>
+              <div class="col-6">
+                <a href="#" class="h5">{{product.shortName}}</a>
+                <div class="d-flex my-3">
+                  <i class="fas fa-star text-primary" *ngFor="let star of [1, 2, 3, 4.5]"></i>
+                </div>
+                <h4 class="mb-3">{{product.price}} Rs</h4>
+                <div class="container mt-5 pb-5">
+                  <div class="row">
+                    <div class="col-md-3 mb-3">
+                      <div class="qty-container">
+                        <button class="qty-btn-minus btn-light" (click)="decrementQuantity(product)" type="button"><i class="fa fa-minus"></i></button>
+                      <a> <input type="text" name="qty" [value]="getQuantity(product)" class="input-qty"/></a>
+                        <button class="qty-btn-plus btn-light" (click)="increment(product)" type="button"><i class="fa fa-plus"></i></button>
+                      </div>
+                    </div>
+                    <button (click)="addToCart(product.productId)" class="btn border border-secondary rounded-pill px-3 text-primary">
+                      <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
