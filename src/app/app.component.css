@@ -18,6 +18,10 @@ a {
     background-color: #81C408;
     color: #fff;
   }
+
+  .abc {
+    color:"red"
+  }
   
   .customIncDecInput {
     text-align: center;
