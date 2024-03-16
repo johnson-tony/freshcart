@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Product } from 'src/app/interface/product';
 import { ProductService } from 'src/app/services/product/product.service';
 import { RegisterObj } from 'src/app/interface/register';
+import { LoginObj } from 'src/app/interface/login';
+import { LoginService } from 'src/app/services/login/login.service';
 @Component({
   selector: 'app-web-products',
   templateUrl: './web-products.component.html',
@@ -18,10 +20,15 @@ export class WebProductsComponent {
   filteredProductsList!: any[];
   isAddToCartApiCallInProgress: boolean = false;
   currentIndex = 0;
-  prod = {
-    productId: 0,
-    quantity: 1
-  };
+
+  loginObj:LoginObj={
+    custId: 0,
+    phoneNumber: 0,
+    custName: '',
+    password: ''
+
+}
+  
 
   
   registerObj: RegisterObj = {
@@ -31,28 +38,31 @@ export class WebProductsComponent {
     password: ''
 };
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router,private loginService:LoginService) {}
 
   ngOnInit(): void {
+
     this.getProducts();
     this.getCategories();
-   
+    this.localStorageId = localStorage.getItem('CusID') as string;
+    this.intValue = parseInt(this.localStorageId);
   }
    
   customerId:number=0;
-  localStorageId = localStorage.getItem('CusID') as string;
-  intValue = parseInt(this.localStorageId);
+  localStorageId:string='';
+  intValue:number=0;
  cusid = this.intValue;
-  addToCart(productId: number) {
-    this.customerId=this.registerObj.custId;
+  addToCart(productId: number,quantity: any) {
+    this.customerId=this.loginObj.custId;
+    this.localStorageId = localStorage.getItem('CusID') as string;
     const addToCardObj = {
       "cartId": 0,
-      "custId": this.intValue,
+      "custId": this.intValue?this.intValue:0,
       "productId": productId,
-      "quantity": this.prod.quantity,
+      "quantity": quantity,
       "addedDate": new Date()
     };
-    if(this.customerId == this.intValue){
+    if(this.localStorageId == null){
       alert("Please Login");
     }
     else{

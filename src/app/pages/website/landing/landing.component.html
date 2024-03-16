@@ -45,8 +45,9 @@
                         </ul>
                     </li>
 
+
                     <!-- Cart dropdown -->
-                    <ng-container *ngIf="registerObj?.custId">
+                    <ng-container *ngIf="customerId">
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -98,8 +99,33 @@
                               </li>
                             </ul>
                           </ng-container>
-                          
+
+                          <ng-container *ngIf="cartList.length == 0">
+                            <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown">
+                              <li>
+                                <p class="text-center mb-0">No Product Added to Cart</p>
+                              </li>
+                            </ul>
                           </ng-container>
+                        </li>
+                        <div id="logout" #logoutDiv>
+                        <span class="d-flex" #customerNameSpan>
+                          <li class="nav-item dropdown" >
+                            <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1" id="navbarDropdown" role="button"
+                              data-bs-toggle="dropdown" aria-expanded="false">
+                              <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i>{{customerName |
+                                uppercase}}</span>
+                            </a>
+                           
+                          </li>
+                          <li class="nav-item ms-4">
+                            <button  class="btn btn-sm btn-danger logOutBtn" (click)="onLogOut(loginObj)" style="padding:4px 10px; margin:6px 0 0;"> <i class="fas fa-sign-out-alt"></i></button>
+                           
+                          </li>
+                        </span>
+                    </div>
+                      </ng-container>
+                        
 
 
 
@@ -115,7 +141,7 @@
 
 
                     <!-- Dropdown for User -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" id="loginicon">
                         <a class="nav-link dropdown-toggle redHover fw-semibold text-uppercase text-black me-1"
                             href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -170,15 +196,15 @@
                       <div class="col-md-12">
                           <div id="password-input-container">
                               <label class="my-1 fw-semibold">Password</label>
-                              <input type="password" class="form-control" id="pass" placeholder="Enter Your Password"  [(ngModel)]="registerObj.password" name="password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"> 
-                              <small class="form-text text-muted">Password must contain at least one number, one uppercase, and one lowercase letter, and at least 8 or more characters</small>
+                              <input type="password" class="form-control" id="pass" placeholder="Enter Your Password"  [(ngModel)]="registerObj.password" name="password" required> 
+                              
                           </div>
                       </div>
                   </div>
               </div>
           </div>
           <!-- Modal footer -->
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-center">
               <button type="button" class="btn btn-danger mx-2" (click)="saveCustomer()">Register</button>
               <button type="button" class="btn btn-info mx-2" (click)="closeRegisterModel()">Close</button>
           </div>
@@ -204,7 +230,7 @@
                   <input type="password" class="form-control" id="loginPassword" placeholder="Enter Your Password" [(ngModel)]="loginObj.password" name="password" required>
               </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-center">
               <button type="button" class="btn btn-primary" (click)="loginCustomer()">Login</button>
               <button type="button" class="btn btn-secondary" (click)="closeLoginModel()">Close</button>
           </div>

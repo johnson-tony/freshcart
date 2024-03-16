@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef, } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Product } from 'src/app/interface/product';
 import { ProductService } from 'src/app/services/product/product.service';
@@ -13,13 +13,14 @@ import { LoginObj } from 'src/app/interface/login';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
+  
   registerForm!: FormGroup;
   ProductList: Product[] = [];
   CategoryList: any[] = [];
   filteredProductsList: Product[] = [];
   cartList: any[] = [];
   
-  registrationSuccess: boolean = false;
+  registrationSuccess: boolean =false;
  
   registerObj: RegisterObj = {
     custId: 0,
@@ -30,8 +31,10 @@ export class LandingComponent implements OnInit {
 
   loginObj: LoginObj = {
     custId: 0,
+    custName: '',
     phoneNumber: 0,
     password: ''
+    
   };
  
 
@@ -39,20 +42,32 @@ export class LandingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       custName: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      
     });
-
+    this.customerName = localStorage.getItem('CusName') as string;
+    const local = localStorage.getItem('CusID') as string;
+    this.customerId = parseInt(local);
+    if(this.customerName != null){
+      const loginicon: HTMLElement | null = this.elementRef.nativeElement.querySelector('#loginicon');
+    if (loginicon) {
+      loginicon.style.display = 'none'; // Hide the login icon
+    }
+    }
     this.getProducts();
     this.getCategories();
   }
-
+  customerName:string='';
+  customerId:number=0;
+  
   openRegisterModel(): void {
     const registerModal = document.getElementById('RegisterModel');
     if (registerModal) {
@@ -70,11 +85,11 @@ export class LandingComponent implements OnInit {
   }
 
   saveCustomer() {
-    if (this.registerForm.valid) {
+     {
       this.loginService.registerCustomer(this.registerObj).subscribe(
         (res: any) => {
           if (res) {
-            this.registrationSuccess = true;
+           
             alert("Registration Completed. Please login.");
             this.closeRegisterModel();
           }
@@ -84,8 +99,6 @@ export class LandingComponent implements OnInit {
           alert("Registration failed. This Phone Number Already Registered");
         }
       );
-    } else {
-      alert("Please fill all required fields.");
     }
   }
 
@@ -107,16 +120,24 @@ export class LandingComponent implements OnInit {
 
   loginCustomer() {
     this.loginService.checkCredential(this.loginObj.phoneNumber, this.loginObj.password).subscribe(
-      (data: RegisterObj) => {
-        this.registerObj = data;
+      (data: LoginObj) => {
+        this.loginObj = data;
+        console.log(data)
         localStorage.setItem('CusID', data.custId.toString());
         localStorage.setItem('CusName', data.custName);
+        this.customerId = data.custId;
+        this.customerName = data.custName;
+        const loginicon: HTMLElement | null = this.elementRef.nativeElement.querySelector('#loginicon');
+
+    if (loginicon) {
+      loginicon.style.display = 'none'; // Hide the login icon
+    }
         alert("Login successful");
         this.closeLoginModel();
       },
       error => {
         console.error('Error fetching categories:', error);
-        alert("Invalid Login Please try again");
+        alert("Invalid PhoneNumber or Password");
       }
     );
   }
@@ -143,7 +164,7 @@ export class LandingComponent implements OnInit {
       }
     );
   }
-
+ 
   navigateToProducts(id: number): void {
     this.router.navigate(['/products', id]);
   }
@@ -159,5 +180,9 @@ export class LandingComponent implements OnInit {
   remove(cartId: any) {
     // Implement cart item removal logic here
     console.log("Removing item with ID:", cartId);
+  }
+  onLogOut(loginObj:any){
+    localStorage.clear(); // Clear all items in local storage
+    window.location.reload(); // Reload the page
   }
 }

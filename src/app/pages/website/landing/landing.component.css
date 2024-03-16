@@ -67,3 +67,9 @@ a:link{
 .red-button:hover {
     background-color: green;
   }
+  .error-message {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+  }
+  

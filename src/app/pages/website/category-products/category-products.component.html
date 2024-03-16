@@ -23,7 +23,7 @@
                     <button class="qty-btn-plus btn-light" (click)="increment(product)" type="button"><i class="fa fa-plus"></i></button>
                   </div>
                 </div>
-                <button (click)="addToCart(product.productId)" class="btn border border-secondary rounded-pill px-3 text-primary">
+                <button (click)="addToCart(product.productId, getQuantity(product))" class="btn border border-secondary rounded-pill px-3 text-primary">
                   <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
                 </button>
               </div>

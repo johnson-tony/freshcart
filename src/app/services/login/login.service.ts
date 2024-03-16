@@ -15,4 +15,14 @@ export class LoginService {
 checkCredential(phoneNumber:number,password:string): Observable<any> {
   return this.http.get<any[]>(`https://localhost:7279/api/CustomerRegisters/CheckCredencial?PhoneNumber=${phoneNumber}&Password=${password}` );
 }
+
+onLogOut(loginObj: any){
+  alert( 'Are you sure that you want log out?')
+  accept: () => {
+    loginObj = {};
+    localStorage.removeItem('CusID');
+    localStorage.removeItem('CusName');
+    
+  }
+}
 }

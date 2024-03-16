@@ -12,7 +12,7 @@ import { RegisterObj } from 'src/app/interface/register';
 export class CategoryProductsComponent implements OnInit {
   products: any[] = [];
   activateCategoryId: number = 0;
-  quantity:number=1;
+  
  
   ProductList: Product[] = [];
 
@@ -23,6 +23,8 @@ export class CategoryProductsComponent implements OnInit {
       
       this.activateCategoryId = params.id;
       this.loadProducts();
+      this.localStorageId = localStorage.getItem('CusID') as string;
+    this.intValue = parseInt(this.localStorageId);
     });
   }
 
@@ -37,10 +39,6 @@ export class CategoryProductsComponent implements OnInit {
       }
     });
   }
-  prod = {
-    productId: 0,
-    quantity: 1
-  };
   registerObj: RegisterObj = {
     custId: 0,
     custName: '',
@@ -48,19 +46,20 @@ export class CategoryProductsComponent implements OnInit {
     password: ''
 };
 customerId:number=0;
-localStorageId = localStorage.getItem('CusID') as string;
-intValue = parseInt(this.localStorageId);
+localStorageId:string='';
+intValue:number=0;
 cusid = this.intValue;
-   addToCart(productId: number) {
+   addToCart(productId: number, quantity: any) {
+    this.localStorageId = localStorage.getItem('CusID') as string;
     this.customerId=this.registerObj.custId;
     const addToCardObj = {
       "cartId": 0,
-      "custId": this.intValue,
+      "custId": this.intValue ? this.intValue:0,
       "productId": productId,
-      "quantity": this.prod.quantity ,
+      "quantity": quantity,
       "addedDate": new Date()
     };
-    if(this.customerId == this.intValue){
+  if(this.localStorageId == null ){
       alert("Please Login");
     }
     else{
@@ -83,6 +82,8 @@ cusid = this.intValue;
   getQuantity(product: any): number {
     return product.quantity || 1;
   }
+
+
   
   increment(product: any) {
     if (!product.quantity) {

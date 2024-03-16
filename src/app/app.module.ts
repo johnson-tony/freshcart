@@ -22,6 +22,8 @@ import { CustomerOrderComponent } from './pages/website/customer-order/customer-
 import { CardComponent } from './shared/components/card/card.component';
 import { OfferCardComponent } from './shared/components/offer-card/offer-card.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SalesComponent } from './pages/admin/sales/sales.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { ToastrModule } from 'ngx-toastr';
    CustomerOrderComponent,
    CardComponent,
    OfferCardComponent,
+   SalesComponent,
   
   
     
@@ -53,6 +56,7 @@ import { ToastrModule } from 'ngx-toastr';
     ButtonModule,
     TableModule,
     ToastrModule, 
+    ReactiveFormsModule,
     
     
   ],
