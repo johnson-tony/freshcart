@@ -55,6 +55,7 @@ export class WebProductsComponent {
   addToCart(productId: number,quantity: any) {
     this.customerId=this.loginObj.custId;
     this.localStorageId = localStorage.getItem('CusID') as string;
+    this.intValue = parseInt(this.localStorageId);
     const addToCardObj = {
       "cartId": 0,
       "custId": this.intValue?this.intValue:0,
@@ -71,6 +72,7 @@ export class WebProductsComponent {
         next: (res) => {
           if (res) {
             alert('Product added to cart');
+            window.location.reload();
           } else {
             alert(res.message);
           }

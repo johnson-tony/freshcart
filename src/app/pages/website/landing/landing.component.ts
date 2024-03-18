@@ -13,12 +13,19 @@ import { LoginObj } from 'src/app/interface/login';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
-  
+toggleDropdown() {
+  this.showDropdown = !this.showDropdown;
+}
+checkoutClicked: boolean = false;
+  showDropdown = false;
   registerForm!: FormGroup;
   ProductList: Product[] = [];
   CategoryList: any[] = [];
   filteredProductsList: Product[] = [];
   cartList: any[] = [];
+  
+  phonePattern: string = "^((\\+91-?)|0)?[0-9]{10}$";
+  passwordPattern: any = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\#?!@$%^&*\-])/;
   
   registrationSuccess: boolean =false;
  
@@ -64,6 +71,8 @@ export class LandingComponent implements OnInit {
     }
     this.getProducts();
     this.getCategories();
+    this.getCartProductbyCustomerId(this.customerId);
+    
   }
   customerName:string='';
   customerId:number=0;
@@ -141,6 +150,14 @@ export class LandingComponent implements OnInit {
       }
     );
   }
+  getCartProductbyCustomerId(custId: number){
+    this.productService.getCartDataByCustomerId(custId).subscribe(
+      (data:any[])=>{
+        this.cartList=data;
+      }
+    )
+  }
+
 
   getCategories(): void {
     this.productService.getCategories().subscribe(
@@ -177,10 +194,28 @@ export class LandingComponent implements OnInit {
     return total;
   }
 
-  remove(cartId: any) {
-    // Implement cart item removal logic here
-    console.log("Removing item with ID:", cartId);
+  remove(cartId: number, ) {
+    this.productService.removeProductByCartId(cartId).subscribe(
+      (res: any) => {
+        // Call getCartProductbyCustomerId after successfully removing the product
+        window.location.reload();
+        // Notify subscribers about the cart update
+       // this.productService.cartUpdated$.next(true);
+      },
+      (error) => {
+        // Handle error if any
+        console.error("Error removing item:", error);
+        // You might want to notify subscribers about the error as well
+        this.productService.cartUpdated$.next(false);
+      }
+    );
   }
+  close()
+  {
+    this.showDropdown = true;
+    this.toggleDropdown()
+  }
+  
   onLogOut(loginObj:any){
     localStorage.clear(); // Clear all items in local storage
     window.location.reload(); // Reload the page

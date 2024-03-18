@@ -9,6 +9,7 @@ import { LandingComponent } from './pages/website/landing/landing.component';
 import { CategoryProductsComponent } from './pages/website/category-products/category-products.component';
 import { CheckoutComponent } from './pages/website/checkout/checkout.component';
 import { CardComponent } from './shared/components/card/card.component';
+import { SalesComponent } from './pages/admin/sales/sales.component';
 
 
 export const routes: Routes = [
@@ -20,7 +21,8 @@ export const routes: Routes = [
  {path:'',component: LayoutComponent,
  children:[
   {path:'products',component: ProductsComponent},
-{path:'categories',component: CategoriesComponent}]
+{path:'categories',component: CategoriesComponent},
+{path:'sales',component:SalesComponent}]
 },
 
 

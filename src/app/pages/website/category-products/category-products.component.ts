@@ -67,6 +67,7 @@ cusid = this.intValue;
       next: (res) => {
         if (res) {
           alert('Product added to cart');
+          window.location.reload();
         } else {
           alert(res.message);
         }

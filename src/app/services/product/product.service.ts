@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  
-  
-
-  
+  public cartUpdated$: Subject<boolean> = new Subject();
   
   constructor(private http: HttpClient) { }
+
+  
 
   getCategories(): Observable<any[]> {
     return this.http.get<any[]>('https://localhost:7279/Categories/api/GetCategories');
@@ -42,10 +41,18 @@ export class ProductService {
     return this.http.delete<any>(`https://localhost:7279/Categories/${categoryId}`);
   }
   addToCart(addToCartObj: any): Observable<any> {
-    return this.http.post<any>('https://localhost:7279/api/AddToCarts', addToCartObj);
+    return this.http.post<any>('https://localhost:7279/api/AddToCarts',addToCartObj);
   }
-  getCartDataByCustomerId(custId:any): Observable<any[]> {
-    return this.http.get<any[]>('https://localhost:7279/api/AddToCarts/ByCustomerId/${custId}');
+  getCartDataByCustomerId(custId: number): Observable<any[]> {
+    return this.http.get<any[]>(`https://localhost:7279/api/AddToCarts/ByCustomerId/${custId}`);
   }
+
+   PlaceonOrder( PlaceonOrderObj: any): Observable<any> {
+    return this.http.post<any>('https://localhost:7279/api/PlaceOrders/PostPlaceOrder',PlaceonOrderObj);
+  }
+  removeProductByCartId(cartId: number): Observable<any> {
+    return this.http.delete<any>(`https://localhost:7279/api/AddToCarts/DeleteCartItem/${cartId}`);
+  }
+
 
 }
