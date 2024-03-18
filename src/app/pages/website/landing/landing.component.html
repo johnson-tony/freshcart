@@ -1,173 +1,169 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light nav-yellow border-bottom border-top p-0">
-        <div class="container">
-            <a class="navbar-brand fs-4 fw-bold" href="#">
-                <i class="fa fa-cart-shopping fs-4" style="color: #f54242;"></i>
-                <span class="textBlur" alt=""> FreshCart</span>
-            </a>
+  <nav class="navbar navbar-expand-lg navbar-light nav-yellow border-bottom border-top p-0">
+      <div class="container">
+          <a class="navbar-brand fs-4 fw-bold" href="#">
+              <i class="fa fa-cart-shopping fs-4" style="color: #f54242;"></i>
+              <span class="textBlur" alt=""> FreshCart</span>
+          </a>
 
-            <!-- Toggler button for collapsed menu -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <!-- Toggle button icon -->
-                <span class="navbar-toggler-icon"></span>
-            </button>
+          <!-- Toggler button for collapsed menu -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+              <!-- Toggle button icon -->
+              <span class="navbar-toggler-icon"></span>
+          </button>
 
-            <!-- Nav Items -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-                    <!-- Dropdown for Categories -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1 text-danger" href="#"
-                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Categories
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li *ngFor="let category of CategoryList" class="position-relative">
-                                <a class="dropdown-item hand" (click)="navigateToProducts(category.categoryId)">
-                                    {{ category.categoryName }}
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+          <!-- Nav Items -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
+                  <!-- Dropdown for Categories -->
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1 text-danger" href="#"
+                          id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Categories
+                      </a>
+                      <ul class="dropdown-menu">
+                          <li *ngFor="let category of CategoryList" class="position-relative">
+                              <a class="dropdown-item hand" (click)="navigateToProducts(category.categoryId)">
+                                  {{ category.categoryName }}
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
 
-                    <!-- Dropdown for Pages -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle redHover fw-semibold text-uppercase text-black me-1"
-                            id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Pages
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">About Us</a></li>
-                            <li><a class="dropdown-item" href="#">Contact Us</a></li>
-                            <li><a class="dropdown-item" href="#">Terms and Conditions</a></li>
-                        </ul>
-                    </li>
+                  <!-- Dropdown for Pages -->
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle redHover fw-semibold text-uppercase text-black me-1"
+                          id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Pages
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="#">About Us</a></li>
+                          <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                          <li><a class="dropdown-item" href="#">Terms and Conditions</a></li>
+                      </ul>
+                  </li>
 
 
-                    <!-- Cart dropdown -->
-                    <ng-container *ngIf="customerId">
-                        <li class="nav-item dropdown">
+                  <!-- Cart dropdown -->
+                  <ng-container *ngIf="customerId">
+                      <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" id="navbarDropdown3" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i  class="bi bi-cart-fill" style="color: #202122;"></i>
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger"
-                              *ngIf="cartList.length !== 0">
-                              {{cartList.length}}
-                            </span>
+                              aria-expanded="false">
+                              <i  class="bi bi-cart-fill" style="color: #202122;"></i>
+                              <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+                                  *ngIf="cartList.length !== 0">
+                                  {{cartList.length}}
+                              </span>
                           </a>
                           <ng-container *ngIf="cartList.length !== 0">
-                            <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown3">
-                              <li class="p-2" *ngFor="let cart of cartList">
-                                <div>
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <img class="cartImg" [src]="cart.imageUrl" alt="...">
-                                    </div>
-                                    <div class="col-md-6">
+                              <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown3">
+                                  <li class="p-2" *ngFor="let cart of cartList">
                                       <div>
-                                        <a class="text-decoration-none text-black fw-semibold">
-                                          <p class="m-0 p-0">{{cart.shortName}}</p>
-                                        </a>
-                                        <p>{{cart.quantity}} <i class="fa-solid fa-xmark" style="color: #0d0d0d;"></i>
-                                          {{cart.price
-                                          |currency:'INR'}}</p>
+                                          <div class="row">
+                                              <div class="col-md-4">
+                                                  <img class="cartImg" [src]="cart.imageUrl" alt="...">
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div>
+                                                      <a class="text-decoration-none text-black fw-semibold">
+                                                          <p class="m-0 p-0">{{cart.shortName}}</p>
+                                                      </a>
+                                                      <p>{{cart.quantity}} <i class="fa-solid fa-xmark" style="color: #0d0d0d;"></i>
+                                                          {{cart.price | currency:'INR'}}</p>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-2">
+                                                  <button class="btn closeBtn float-end" style="height: auto;" (click)="remove(cart.cartId)"><i
+                                                          class="fa fa-xmark"></i></button>
+                                              </div>
+                                          </div>
                                       </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                      <button class="btn closeBtn float-end" style="height: auto;" (click)="remove(cart.cartId)"><i
-                                          class="fa fa-xmark"></i></button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="p-2">
-                                <div class=" w-100 ">
-                                  <div class="d-flex justify-content-between">
-                                    <h6>SubTotal :</h6>
-                                    <h6>{{calculateTotal() | currency: 'INR'}}</h6>
-                                  </div>
-                                  <div class="d-flex justify-content-evenly mt-2">
-                                    <button class="btn btn-dark rounded-0 px-3"> View Cart</button>
-                                    <a routerLink="/checkout" routerLinkActive="router-link-active">
-                                      <button class="btn btn-danger rounded-0 px-3">Checkout</button>
-                                    </a>
-                                    
-                                  </div>
-                                </div>
-                              </li>
-                            </ul>
+                                  </li>
+                                  <li class="p-2">
+                                      <div class=" w-100 ">
+                                          <div class="d-flex justify-content-between">
+                                              <h6>SubTotal :</h6>
+                                              <h6>{{calculateTotal() | currency: 'INR'}}</h6>
+                                          </div>
+                                          <div class="d-flex justify-content-evenly mt-2">
+                                              <button class="btn btn-dark rounded-0 px-3"> View Cart</button>
+                                              <a routerLink="/checkout" routerLinkActive="router-link-active">
+                                                  <button class="btn btn-danger rounded-0 px-3">Checkout</button>
+                                              </a>
+
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
                           </ng-container>
 
                           <ng-container *ngIf="cartList.length == 0">
-                            <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown">
-                              <li>
-                                <p class="text-center mb-0">No Product Added to Cart</p>
-                              </li>
-                            </ul>
+                              <ul class="dropdown-menu menuOnLeft rounded-0 mt-2" aria-labelledby="navbarDropdown">
+                                  <li>
+                                      <p class="text-center mb-0">No Product Added to Cart</p>
+                                  </li>
+                              </ul>
                           </ng-container>
-                        </li>
-                        <div id="logout" #logoutDiv>
-                        <span class="d-flex" #customerNameSpan>
-                          <li class="nav-item dropdown" >
-                            <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1" id="navbarDropdown" role="button"
-                              data-bs-toggle="dropdown" aria-expanded="false">
-                              <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i>{{customerName |
-                                uppercase}}</span>
-                            </a>
-                           
+                      </li>
+                      <div id="logout" #logoutDiv>
+                          <span class="d-flex" #customerNameSpan>
+                              <li class="nav-item dropdown" >
+                                  <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1" id="navbarDropdown" role="button"
+                                  data-bs-toggle="dropdown" aria-expanded="false">
+                                  <span class="text-dark fw-bold"><i class="fa fa-user ms-3 me-1"></i>{{customerName |
+                                      uppercase}}</span>
+                                  </a>
+
+                              </li>
+                              <li class="nav-item ms-4">
+                                  <button  class="btn btn-sm btn-danger logOutBtn" (click)="onLogOut(loginObj)" style="padding:4px 10px; margin:6px 0 0;"> <i class="fas fa-sign-out-alt"></i></button>
+
+                              </li>
+                          </span>
+                      </div>
+                  </ng-container>
+
+
+
+
+
+
+
+
+
+
+
+
+                  <!-- Dropdown for User -->
+                  <li class="nav-item dropdown" id="loginicon">
+                      <a class="nav-link dropdown-toggle redHover fw-semibold text-uppercase text-black me-1"
+                          href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                          <!-- Icon button triggering the dropdown -->
+                          <i class="bi bi-person-fill f-3"></i>
+                      </a>
+                      <!-- Dropdown menu -->
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <!-- Login button -->
+                          <li>
+                              <button class="dropdown-item redButton" type="button" (click)="openLoginModel()">
+                                  Login
+                              </button>
                           </li>
-                          <li class="nav-item ms-4">
-                            <button  class="btn btn-sm btn-danger logOutBtn" (click)="onLogOut(loginObj)" style="padding:4px 10px; margin:6px 0 0;"> <i class="fas fa-sign-out-alt"></i></button>
-                           
+                          <!-- Register button -->
+                          <li>
+                              <button class="dropdown-item redButton" type="button" (click)="openRegisterModel()">
+                                  Register
+                              </button>
                           </li>
-                        </span>
-                    </div>
-                      </ng-container>
-                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <!-- Dropdown for User -->
-                    <li class="nav-item dropdown" id="loginicon">
-                        <a class="nav-link dropdown-toggle redHover fw-semibold text-uppercase text-black me-1"
-                            href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <!-- Icon button triggering the dropdown -->
-                            <i class="bi bi-person-fill f-3"></i>
-                        </a>
-                        <!-- Dropdown menu -->
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- Login button -->
-                            <li>
-                                <button class="dropdown-item redButton" type="button" (click)="openLoginModel()">
-                                    Login
-                                </button>
-                            </li>
-                            <!-- Register button -->
-                            <li>
-                                <button class="dropdown-item redButton" type="button" (click)="openRegisterModel()">
-                                    Register
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
 </header>
 <router-outlet></router-outlet>
 <!-- Register Modal -->
