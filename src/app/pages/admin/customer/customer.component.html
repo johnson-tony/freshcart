@@ -1,1 +1,18 @@
-<p>customer works!</p>
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Customer Id</th>
+      <th>Customer Name</th>
+      <th>MobileNo</th> 
+      <th>Password</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of CustomerList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ customer.custName }}</td>
+      <td>{{ customer.phoneNumber }}</td>
+      <td>{{ customer.password }}</td>
+    </tr>
+  </tbody>
+</table>

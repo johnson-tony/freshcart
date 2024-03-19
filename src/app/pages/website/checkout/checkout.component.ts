@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PlaceonOrderObj } from 'src/app/interface/placeonOrder';
 import { ProductService } from 'src/app/services/product/product.service';
 
@@ -13,12 +14,12 @@ export class CheckoutComponent implements OnInit {
   cartList: any[] = [];
   
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router,private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    const local = localStorage.getItem('CusID') as string;
-  this.customerId = parseInt(local);
-    this.getCartProductbyCustomerId(this.customerId);
+   this.getCartProductbyCustomerId(this.customerId);
+   const local = localStorage.getItem('CusID') as string;
+   this.customerId = parseInt(local);
   }
   total:number=0
  customerId:number=0;
@@ -36,42 +37,65 @@ export class CheckoutComponent implements OnInit {
   DeliveryLandMark: ''
 };
 
-  placeOrder(): void {
-    //const local = localStorage.getItem('CusID') as string;
-    //this.customerId = parseInt(local);
-   // this.productService.PlaceonOrder(this.PlaceonOrderObj).subscribe({
-    //  next: (res) => {
-       // if (res) {
-          alert('Order placed successfully!');
-          
-          
-          // Optionally, navigate to a different page or clear the cart
-      //  } else {
-      //    alert('Failed to place order. Please try again later.');
-      //  }
-     // },
-    //  error: (error) => {
-      //  console.error('Error placing order:', error);
-     //   alert('Failed to place order. Please try again later.');
-   //   }
-   // });
- }
+ 
 
   getCartProductbyCustomerId(custId: number){
     this.productService.getCartDataByCustomerId(custId).subscribe(
       (data:any[])=>{
         this.cartList=data;
+        if (!this.cartList|| this.cartList.length === 0) {
+          this.router.navigate(['/AllProducts']);
+        }
       }
     )
   }
 
-  
+  remove(cartId: number ) {
+    this.productService.removeProductByCartId(cartId).subscribe(
+      (res: any) => {
+       
+        this.getCartProductbyCustomerId(this.customerId);
+        // Call getCartProductbyCustomerId after successfully removing the product
+        
+       
+      },
+      (error) => {
+        // Handle error if any
+        console.error("Error removing item:", error);
+        
+      }
+    );
+  }
 
-  calculateTotal(): number {
+ calculateTotal(): number {
     this.total = 0;
     for (const item of this.cartList) {
       this.total += (item.price * item.quantity);
     }
     return this.total;
   }
+
+  placeOrder(PlaceonOrderObj:any): void {
+    const local = localStorage.getItem('CusID') as string;
+    this.customerId = parseInt(local);
+    this.productService.PlaceonOrder(this.PlaceonOrderObj).subscribe({
+      next: (res) => {
+        debugger;
+        if (res) {
+       
+          this.toastr.success('Order placed successfully!');
+          
+          
+          // Optionally, navigate to a different page or clear the cart
+       } else {
+         this.toastr.warning('Failed to place order. Please try again later.');
+      }
+      },
+      error: (error) => {
+        console.error('Error placing order:', error);
+        this.toastr.error('Failed to place order. Please enter valid Information.');
+     }
+    });
+ }
+
 }

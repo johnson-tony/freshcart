@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 import { RegisterObj } from 'src/app/interface/register';
 import { LoginObj } from 'src/app/interface/login';
 import { LoginService } from 'src/app/services/login/login.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-web-products',
   templateUrl: './web-products.component.html',
@@ -38,7 +39,8 @@ export class WebProductsComponent {
     password: ''
 };
 
-  constructor(private productService: ProductService, private router: Router,private loginService:LoginService) {}
+  constructor(private productService: ProductService, private router: Router,private loginService:LoginService,
+    private toastr:ToastrService) {}
 
   ngOnInit(): void {
 
@@ -64,15 +66,16 @@ export class WebProductsComponent {
       "addedDate": new Date()
     };
     if(this.localStorageId == null){
-      alert("Please Login");
+      this.toastr.warning("Please Login");
     }
     else{
       this.productService.addToCart(addToCardObj).subscribe({
       
         next: (res) => {
           if (res) {
-            alert('Product added to cart');
-            window.location.reload();
+            this.toastr.success('Product added to cart');
+            
+            this.productService.cartUpdated$?.next(true);
           } else {
             alert(res.message);
           }

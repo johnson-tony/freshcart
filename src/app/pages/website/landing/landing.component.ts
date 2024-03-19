@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
 import { RegisterObj } from 'src/app/interface/register';
 import { LoginObj } from 'src/app/interface/login';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-landing',
@@ -50,8 +51,13 @@ checkoutClicked: boolean = false;
     private productService: ProductService,
     private router: Router,
     private loginService: LoginService,
-    private elementRef: ElementRef
-  ) {}
+    private elementRef: ElementRef,private toastr: ToastrService
+  ) {
+    this.productService.cartUpdated$?.subscribe((res:any)=>{
+     
+      this.getCartProductbyCustomerId(this.customerId );
+    })
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -99,13 +105,13 @@ checkoutClicked: boolean = false;
         (res: any) => {
           if (res) {
            
-            alert("Registration Completed. Please login.");
+            this.toastr.success("Registration Completed. Please login.");
             this.closeRegisterModel();
           }
         },
         (error) => {
           console.error("Error occurred while registering customer:", error);
-          alert("Registration failed. This Phone Number Already Registered");
+          this.toastr.warning("Registration failed. This Phone Number Already Registered");
         }
       );
     }
@@ -141,12 +147,12 @@ checkoutClicked: boolean = false;
     if (loginicon) {
       loginicon.style.display = 'none'; // Hide the login icon
     }
-        alert("Login successful");
+        this.toastr.success("Login successful");
         this.closeLoginModel();
       },
       error => {
         console.error('Error fetching categories:', error);
-        alert("Invalid PhoneNumber or Password");
+        this.toastr.error("Invalid PhoneNumber or Password");
       }
     );
   }
@@ -194,19 +200,19 @@ checkoutClicked: boolean = false;
     return total;
   }
 
-  remove(cartId: number, ) {
+  remove(cartId: number ) {
     this.productService.removeProductByCartId(cartId).subscribe(
       (res: any) => {
+       
+        this.getCartProductbyCustomerId(this.customerId);
         // Call getCartProductbyCustomerId after successfully removing the product
-        window.location.reload();
-        // Notify subscribers about the cart update
-       // this.productService.cartUpdated$.next(true);
+        
+       
       },
       (error) => {
         // Handle error if any
         console.error("Error removing item:", error);
-        // You might want to notify subscribers about the error as well
-        this.productService.cartUpdated$.next(false);
+        
       }
     );
   }

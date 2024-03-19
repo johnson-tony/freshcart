@@ -83,9 +83,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <button class="btn btn-danger mt-4 btn-sm">
-                                                    <i class="fa fa-close text-white"></i>
+                                                <button  class="fa fa-times-circle" style="font-size:48px;color:red" (click)="remove(cart.cartId)" style="box-sizing: border-box;">
+                                                    
                                                 </button>
+                                                
                                                 
                                             </div>
                                         </div>
@@ -108,13 +109,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-center mt-2">
-                                        <button class="btn placeBtn rounded-0 w-100" (click)="placeOrder()">
+                                        <button class="btn placeBtn rounded-0 w-100" (click)="placeOrder(PlaceonOrderObj)">
                                             Place Order</button>
                                     </div>
                                 </div>
                             </div>
                         </ng-container>
-                        
+                        <ng-container *ngIf="cartList.length == 0">
+                            <p class="text-center fw-bold mt-3">No Orders Available To Place!</p>
+                          </ng-container>
                     </div>
                 </div>
             </div>

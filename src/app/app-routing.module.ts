@@ -10,6 +10,7 @@ import { CategoryProductsComponent } from './pages/website/category-products/cat
 import { CheckoutComponent } from './pages/website/checkout/checkout.component';
 import { CardComponent } from './shared/components/card/card.component';
 import { SalesComponent } from './pages/admin/sales/sales.component';
+import { CustomerComponent } from './pages/admin/customer/customer.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
  children:[
   {path:'products',component: ProductsComponent},
 {path:'categories',component: CategoriesComponent},
+{path:'customer',component: CustomerComponent},
 {path:'sales',component:SalesComponent}]
 },
 

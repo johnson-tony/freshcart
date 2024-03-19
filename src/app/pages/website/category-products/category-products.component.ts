@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/interface/product';
 import { ProductService } from 'src/app/services/product/product.service';
 import { RegisterObj } from 'src/app/interface/register';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-category-products',
@@ -16,7 +18,7 @@ export class CategoryProductsComponent implements OnInit {
  
   ProductList: Product[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService) {}
+  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService,toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: any) => {
@@ -67,7 +69,7 @@ cusid = this.intValue;
       next: (res) => {
         if (res) {
           alert('Product added to cart');
-          window.location.reload();
+          this.productService.cartUpdated$?.next(true);
         } else {
           alert(res.message);
         }

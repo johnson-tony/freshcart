@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  public cartUpdated$: Subject<boolean> = new Subject();
+  public cartUpdated$: Subject<boolean>=new Subject();
   
   constructor(private http: HttpClient) { }
 
@@ -54,5 +54,8 @@ export class ProductService {
     return this.http.delete<any>(`https://localhost:7279/api/AddToCarts/DeleteCartItem/${cartId}`);
   }
 
+  getAllCustomers(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7279/api/CustomerRegisters');
+  }
 
 }

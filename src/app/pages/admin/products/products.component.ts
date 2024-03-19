@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/services/product/product.service';
 import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/interface/product';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products',
@@ -35,7 +36,7 @@ export class ProductsComponent implements OnInit {
   
   };
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,private toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.getCategories();
@@ -69,10 +70,10 @@ export class ProductsComponent implements OnInit {
   onSave() {
     this.productService.saveProducts(this.productObj).subscribe((res: any) => {
       if (res) {
-         alert("Product created successfully");
+         this.toastr.success("Product created successfully");
          this.getProducts();
       } else {
-        alert("Failed to create product: " + res.message);
+        this.toastr.error("Failed to create product: " + res.message);
       }
     }, error => {
       console.error("Error saving product:", error);
@@ -104,7 +105,7 @@ export class ProductsComponent implements OnInit {
       const productId = product.productId;
       this.productService.deleteProduct(productId).subscribe((res: any) => {
         console.log(res);
-        alert("Product Deleted Successfully");
+        this.toastr.success("Product Deleted Successfully");
         window.location.reload();
       }, error => {
         console.error("Error deleting product:", error);

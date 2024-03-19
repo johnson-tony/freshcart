@@ -16,7 +16,7 @@ import { CheckoutComponent } from './pages/website/checkout/checkout.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { CustomerComponent } from './pages/admin/customer/customer.component';
-import { OrderComponent } from './pages/admin/order/order.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CustomerCartComponent } from './pages/website/customer-cart/customer-cart.component';
 import { CustomerOrderComponent } from './pages/website/customer-order/customer-order.component';
 import { CardComponent } from './shared/components/card/card.component';
@@ -36,8 +36,7 @@ import { SalesComponent } from './pages/admin/sales/sales.component';
     WebProductsComponent,
     CheckoutComponent,
    CustomerComponent,
-   OrderComponent,
-   CustomerCartComponent,
+  CustomerCartComponent,
    CustomerOrderComponent,
    CardComponent,
    OfferCardComponent,
@@ -55,9 +54,11 @@ import { SalesComponent } from './pages/admin/sales/sales.component';
     HttpClientModule,
     ButtonModule,
     TableModule,
-    ToastrModule, 
+    ToastrModule.forRoot({
+      positionClass:"toast-top-center",
+    }), 
     ReactiveFormsModule,
-    
+    BrowserAnimationsModule
     
   ],
   providers: [],

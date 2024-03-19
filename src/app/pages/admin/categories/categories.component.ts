@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
@@ -10,7 +11,7 @@ export class CategoriesComponent implements OnInit {
 
   CategoryList: any[] = [];
    
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService,private toastr:ToastrService) {}
   inputValue: string = '';
   CategoryId:number = 0;
   ngOnInit(): void {
@@ -58,10 +59,10 @@ export class CategoriesComponent implements OnInit {
     this.productService.CreateCategory(obj).subscribe((res: any) => {
       if (res) {
         if(this.CategoryId == 0){
-          alert("Category created successfully");
+          this.toastr.success("Category created successfully");
         }
         else{
-          alert("Category Updated successfully");
+          this.toastr.success("Category Updated successfully");
         }
         this.getCategories();
       }
@@ -73,7 +74,7 @@ export class CategoriesComponent implements OnInit {
     if (isDelete) {
       this.productService.deleteCategories(categoryId).subscribe((res: any) => {
         console.log(res);
-        alert("Category Deleted Successfully");
+        this.toastr.success("Category Deleted Successfully");
         window.location.reload();
       }, (error: any) => {
         console.error("Error deleting Category:", error);
