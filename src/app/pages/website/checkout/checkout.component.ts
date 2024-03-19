@@ -20,8 +20,9 @@ export class CheckoutComponent implements OnInit {
    this.getCartProductbyCustomerId(this.customerId);
    const local = localStorage.getItem('CusID') as string;
    this.customerId = parseInt(local);
+   
   }
-  total:number=0
+  total:number=0;
  customerId:number=0;
  PlaceonOrderObj: PlaceonOrderObj = {
   SaleId: 0,
@@ -44,7 +45,7 @@ export class CheckoutComponent implements OnInit {
       (data:any[])=>{
         this.cartList=data;
         if (!this.cartList|| this.cartList.length === 0) {
-          this.router.navigate(['/AllProducts']);
+         
         }
       }
     )
@@ -53,7 +54,7 @@ export class CheckoutComponent implements OnInit {
   remove(cartId: number ) {
     this.productService.removeProductByCartId(cartId).subscribe(
       (res: any) => {
-       
+        this.productService.cartUpdated$.next(true);
         this.getCartProductbyCustomerId(this.customerId);
         // Call getCartProductbyCustomerId after successfully removing the product
         
@@ -75,27 +76,53 @@ export class CheckoutComponent implements OnInit {
     return this.total;
   }
 
-  placeOrder(PlaceonOrderObj:any): void {
+  placeOrder(PlaceonOrderObj: any): void {
+    // Perform validation
+    if (!this.isValidOrder(PlaceonOrderObj)) {
+      this.toastr.error('Please enter valid order information.');
+      return;
+    }
+  
+    // Calculate total invoice amount
+    PlaceonOrderObj.TotalInvoiceAmount = this.calculateTotal();
+  
+    // Get customer ID from local storage
     const local = localStorage.getItem('CusID') as string;
-    this.customerId = parseInt(local);
-    this.productService.PlaceonOrder(this.PlaceonOrderObj).subscribe({
+    PlaceonOrderObj.CustId = parseInt(local);
+  
+    // Call the PlaceonOrder API
+    this.productService.PlaceonOrder(PlaceonOrderObj).subscribe({
       next: (res) => {
-        debugger;
         if (res) {
-       
-          this.toastr.success('Order placed successfully!');
+          this.toastr.success('Order placed successfully! Your order will be delivered soon.');
+          const cartIdToRemove = this.cartList; // Replace 123 with the actual cartId to remove
+            
+         
+          this.productService.cartUpdated$.next(true);
           
-          
-          // Optionally, navigate to a different page or clear the cart
-       } else {
-         this.toastr.warning('Failed to place order. Please try again later.');
-      }
+          this.cartList = []; // Clear cart list after placing the order
+          this.router.navigateByUrl('AllProducts'); // Navigate to AllProducts page
+        } else {
+          this.toastr.warning('Failed to place order. Please try again later.');
+        }
       },
       error: (error) => {
         console.error('Error placing order:', error);
-        this.toastr.error('Failed to place order. Please enter valid Information.');
-     }
+        this.toastr.error('Failed to place order. Please enter valid information.');
+      }
     });
- }
+  }
+  
+  // Function to validate order information
+  isValidOrder(order: any): boolean {
+    // Perform your validation logic here
+    // For example, check if required fields are filled out
+    if (!order.DeliveryCity || !order.PinCode || !order.DeliveryAddress1 || !order.DeliveryLandMark || !order.PaymentNaration) {
+      return false;
+    }
+    // Add more validation rules if necessary
+    return true;
+  }
+  
 
 }

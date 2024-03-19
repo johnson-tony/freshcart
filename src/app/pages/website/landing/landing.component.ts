@@ -206,8 +206,6 @@ checkoutClicked: boolean = false;
        
         this.getCartProductbyCustomerId(this.customerId);
         // Call getCartProductbyCustomerId after successfully removing the product
-        
-       
       },
       (error) => {
         // Handle error if any
