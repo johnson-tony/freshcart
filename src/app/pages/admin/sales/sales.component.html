@@ -1,1 +1,24 @@
-<p>sales works!</p>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sales id</th>
+        <th>Customer id</th>
+        <th>cart id</th> 
+        <th>Customer Name</th>
+        <th>categoty</th>
+        <th>Product detail name</th>
+        <th>Date</th>
+        <th>invoice Amount</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sales of SalesList; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td></td>
+        <td> 
+        
+        </td>
+      </tr>
+    </tbody>
+  </table>

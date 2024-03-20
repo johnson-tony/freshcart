@@ -83,4 +83,12 @@ a:link{
     font-size: 20px; /* Adjust the size as needed */
 }
 
+.loginDropdownMenu {
+    width: 220px !important;
+  }
+  .dropdown-item:active {
+    background: #81C408 !important;
+  }
+ 
+
   

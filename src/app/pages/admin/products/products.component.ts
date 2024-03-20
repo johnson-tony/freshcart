@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProductsComponent implements OnInit {
 
+
   @ViewChild('productFrm') productFrm!: NgForm;
   isSidePanelVisible: boolean = false;
   displayModalProduct: boolean = false;
@@ -139,4 +140,8 @@ export class ProductsComponent implements OnInit {
     this.first = event.first;
     this.rows = event.rows;
   }
+
+  isFormValid() {
+    return true;
+    }
 }

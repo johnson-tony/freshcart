@@ -63,20 +63,32 @@
           <div class="col-6">
             <label for="productSku">SKU</label>
             <input type="text" [(ngModel)]="productObj.productSku" class="form-control" id="productSku" name="productSku" required placeholder="Enter SKU" #productSku="ngModel">
+            <div *ngIf="productSku.invalid && (productSku.dirty || productSku.touched)" class="text-danger">
+              SKU is required.
+            </div>
           </div>
           <div class="col-6">
             <label class="fw-semibold my-1">Name</label>
             <input type="text" [(ngModel)]="productObj.productName" class="form-control" required placeholder="Enter Product Name" #productName="ngModel">
+            <div *ngIf="productName.invalid && (productName.dirty || productName.touched)" class="text-danger">
+              Product Name is required.
+            </div>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <label class="fw-semibold my-1">ShortName</label>
-            <input type="text" [(ngModel)]="productObj.shortName" class="form-control" required placeholder="Enter ShortName Name" #shortName="ngModel">
+            <label class="fw-semibold my-1">Detailed Name</label>
+            <input type="text" [(ngModel)]="productObj.shortName" class="form-control" required placeholder="Enter Detailed Name" #shortName="ngModel">
+            <div *ngIf="shortName.invalid && (shortName.dirty || shortName.touched)" class="text-danger">
+              Product Name is required.
+            </div>
           </div>
           <div class="col-6">
             <label class="fw-semibold my-1">Price</label>
-            <input type="text" [(ngModel)]="productObj.price" class="form-control">
+            <input type="text" [(ngModel)]="productObj.price" class="form-control" #price="ngModel">
+            <div *ngIf="price.invalid && (price.dirty || price.touched)" class="text-danger">
+              Product Name is required.
+            </div>
           </div>
         </div>
         <div class="row">
@@ -95,7 +107,10 @@
         <div class="row">
           <div class="col-12">
             <label class="fw-semibold my-1">Image Url</label>
-            <input type="text" [(ngModel)]="productObj.imageUrl" class="form-control">
+            <input type="text" [(ngModel)]="productObj.imageUrl" class="form-control"  #imageUrl="ngModel">
+            <div *ngIf="imageUrl.invalid && (imageUrl.dirty || imageUrl.touched)" class="text-danger">
+              Product Name is required.
+            </div>
           </div>
         </div>
         <div class="row">
@@ -109,7 +124,7 @@
             <button class="btn btn-success" (click)="clearFields()">Reset</button>
           </div>
           <div class="col-6">
-            <button class="btn btn-success" (click)="onSave()">Update Product</button>
+            <button class="btn btn-success" (click)="onSave()" [disabled]="!isFormValid()">Update Product</button>
           </div>
         </div>
       </div>
