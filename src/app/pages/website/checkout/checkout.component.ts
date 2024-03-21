@@ -10,13 +10,9 @@ import { ProductService } from 'src/app/services/product/product.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
-  
   cartList: any[] = [];
-  
-
-  constructor(private productService: ProductService, private router: Router,private toastr: ToastrService) {}
-
-  ngOnInit(): void {
+   constructor(private productService: ProductService, private router: Router,private toastr: ToastrService) {}
+ ngOnInit(): void {
    this.getCartProductbyCustomerId(this.customerId);
    const local = localStorage.getItem('CusID') as string;
    this.customerId = parseInt(local);
@@ -38,9 +34,7 @@ export class CheckoutComponent implements OnInit {
   DeliveryLandMark: ''
 };
 
- 
-
-  getCartProductbyCustomerId(custId: number){
+ getCartProductbyCustomerId(custId: number){
     this.productService.getCartDataByCustomerId(custId).subscribe(
       (data:any[])=>{
         this.cartList=data;
@@ -56,12 +50,9 @@ export class CheckoutComponent implements OnInit {
       (res: any) => {
         this.productService.cartUpdated$.next(true);
         this.getCartProductbyCustomerId(this.customerId);
-        // Call getCartProductbyCustomerId after successfully removing the product
-        
-       
       },
       (error) => {
-        // Handle error if any
+       
         console.error("Error removing item:", error);
         
       }
@@ -76,32 +67,27 @@ export class CheckoutComponent implements OnInit {
     return this.total;
   }
 
+  
   placeOrder(PlaceonOrderObj: any): void {
-    // Perform validation
     if (!this.isValidOrder(PlaceonOrderObj)) {
       this.toastr.error('Please enter valid order information.');
       return;
     }
-  
-    // Calculate total invoice amount
-    PlaceonOrderObj.TotalInvoiceAmount = this.calculateTotal();
-  
-    // Get customer ID from local storage
+   PlaceonOrderObj.TotalInvoiceAmount = this.calculateTotal();
     const local = localStorage.getItem('CusID') as string;
     PlaceonOrderObj.CustId = parseInt(local);
-  
-    // Call the PlaceonOrder API
     this.productService.PlaceonOrder(PlaceonOrderObj).subscribe({
       next: (res) => {
         if (res) {
           this.toastr.success('Order placed successfully! Your order will be delivered soon.');
-          const cartIdToRemove = this.cartList; // Replace 123 with the actual cartId to remove
-            
-         
+          this.remove(this.cartList[0].cartId);
           this.productService.cartUpdated$.next(true);
-          
-          this.cartList = []; // Clear cart list after placing the order
-          this.router.navigateByUrl('AllProducts'); // Navigate to AllProducts page
+         this.cartList = []; 
+         
+         this.router.navigate(['/Allproducts']);
+        
+        
+        
         } else {
           this.toastr.warning('Failed to place order. Please try again later.');
         }
@@ -111,18 +97,12 @@ export class CheckoutComponent implements OnInit {
         this.toastr.error('Failed to place order. Please enter valid information.');
       }
     });
-  }
-  
-  // Function to validate order information
+  } 
   isValidOrder(order: any): boolean {
-    // Perform your validation logic here
-    // For example, check if required fields are filled out
-    if (!order.DeliveryCity || !order.PinCode || !order.DeliveryAddress1 || !order.DeliveryLandMark || !order.PaymentNaration) {
+     if (!order.DeliveryCity || !order.PinCode || !order.DeliveryAddress1 || !order.DeliveryLandMark || !order.PaymentNaration) {
       return false;
     }
-    // Add more validation rules if necessary
     return true;
   }
-  
-
+           
 }

@@ -18,7 +18,9 @@ export class CategoryProductsComponent implements OnInit {
  
   ProductList: Product[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private productService: ProductService,toastr:ToastrService) {}
+  constructor(private activatedRoute: ActivatedRoute, 
+    private productService: ProductService,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: any) => {
@@ -62,16 +64,16 @@ cusid = this.intValue;
       "addedDate": new Date()
     };
   if(this.localStorageId == null ){
-      alert("Please Login");
+      this.toastr.warning("Please Login");
     }
     else{
     this.productService.addToCart(addToCardObj).subscribe({
       next: (res) => {
         if (res) {
-          alert('Product added to cart');
+          this.toastr.success('Product added to cart');
           this.productService.cartUpdated$?.next(true);
         } else {
-          alert(res.message);
+          this.toastr.warning(res.message);
         }
       },
       error: (error) => {
