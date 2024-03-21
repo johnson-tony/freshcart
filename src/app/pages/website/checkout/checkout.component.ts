@@ -85,6 +85,10 @@ export class CheckoutComponent implements OnInit {
          this.cartList = []; 
          
          this.router.navigate(['/Allproducts']);
+         if(this.cartList.length=0){
+          this.router.navigate(['/Allproducts'])
+          
+         }
         
         
         

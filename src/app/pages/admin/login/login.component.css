@@ -123,13 +123,16 @@
     display: none;
 }
 
-.remember-me input[type="checkbox"]:checked+.checkbox-custom::after {
-    display: block;
-}
+
 
 .remember-me input[type="checkbox"]:checked+.checkbox-custom {
     background-color: #027186;
     border-color: #027186;
+    content: "✔";
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    color: #007bff;
 }
 
 .social-login {

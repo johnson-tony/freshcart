@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent {
 
-
+  rememberMe = false;
   loginObj:any ={
     
     userName: '',
@@ -21,6 +21,13 @@ export class LoginComponent {
 constructor(private router:Router,private toastr:ToastrService){}
 
   onLogin(): void {
+    if (this.rememberMe) {
+      localStorage.setItem('userName', this.loginObj.userName);
+      localStorage.setItem('password', this.loginObj.password);
+    } else {
+      localStorage.removeItem('username');
+      localStorage.removeItem('password');
+    }
     if(this.loginObj.userName=="admin"&& this.loginObj.password =="112233"){
      this.router.navigateByUrl('/products')
     
