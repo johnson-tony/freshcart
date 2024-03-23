@@ -8,9 +8,10 @@ import { WebProductsComponent } from './pages/website/web-products/web-products.
 import { LandingComponent } from './pages/website/landing/landing.component';
 import { CategoryProductsComponent } from './pages/website/category-products/category-products.component';
 import { CheckoutComponent } from './pages/website/checkout/checkout.component';
-import { CardComponent } from './shared/components/card/card.component';
+
 import { SalesComponent } from './pages/admin/sales/sales.component';
 import { CustomerComponent } from './pages/admin/customer/customer.component';
+import { AboutUsComponent } from './pages/website/about-us/about-us.component';
 
 
 export const routes: Routes = [
@@ -20,45 +21,22 @@ export const routes: Routes = [
  
 
  {path:'',component: LayoutComponent,
- children:[
-  {path:'products',component: ProductsComponent},
-{path:'categories',component: CategoriesComponent},
-{path:'customer',component: CustomerComponent},
-{path:'sales',component:SalesComponent}]
+  children:[
+       {path:'products',component: ProductsComponent},
+       {path:'categories',component: CategoriesComponent},
+       {path:'customer',component: CustomerComponent},
+       {path:'sales',component:SalesComponent}]
 },
 
-
-{
-  path:'',
-  component:LandingComponent,
+{path:'',component:LandingComponent,
   children: [
-      {
-          path:'Allproducts',
-          component:WebProductsComponent
-      },
-
-      {
-        path:'products/:id',
-        component:CategoryProductsComponent
-      },
-      
-       {
-        path:'checkout',
-        component:CheckoutComponent
-      },
-
-      {
-        path:'cart',
-        component:CardComponent
-      }
+      {path:'Allproducts',component:WebProductsComponent},
+      {path:'products/:id',component:CategoryProductsComponent},
+      {path:'checkout',component:CheckoutComponent},
+      {path:'aboutUs',component:AboutUsComponent},
+      {path:'login',component: LoginComponent}
   ],
-
-
- 
-
 }
- 
-
 ];
 
 @NgModule({

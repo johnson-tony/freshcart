@@ -82,3 +82,26 @@ a:hover{
   background-color: #81c408;
 
 }
+
+.search {
+  display: flex;
+  align-items: center; 
+  width:50%;
+  margin-left: 25%;
+}
+
+.search input {
+  flex: 1; /* Take up remaining space */
+  margin-right: 10px; 
+   width:50%;
+}
+
+.search input:hover {
+  border-color: green; 
+  border-width: 2px;
+}
+
+.search button {
+  color:aliceblue;
+  background-color: #81c408;
+}

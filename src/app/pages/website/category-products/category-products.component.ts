@@ -4,7 +4,7 @@ import { Product } from 'src/app/interface/product';
 import { ProductService } from 'src/app/services/product/product.service';
 import { RegisterObj } from 'src/app/interface/register';
 import { ToastrService } from 'ngx-toastr';
-
+import { CategoryObj } from 'src/app/interface/category';
 
 @Component({
   selector: 'app-category-products',
@@ -13,17 +13,20 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CategoryProductsComponent implements OnInit {
   products: any[] = [];
+  CategoryList:any[]=[];
   activateCategoryId: number = 0;
-  
- 
-  ProductList: Product[] = [];
-
-  constructor(private activatedRoute: ActivatedRoute, 
-    private productService: ProductService,
-    private toastr: ToastrService) {}
-
+  CategoryObj:CategoryObj={
+    categoryId: 0,
+    categoryName: 'string',
+    parentCategoryId: 0
+  }
+    categoryId=0;
+ ProductList: Product[] = [];
+constructor(private activatedRoute: ActivatedRoute, 
+private productService: ProductService,
+private toastr: ToastrService) {}
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params: any) => {
+   this.activatedRoute.params.subscribe((params: any) => {
       
       this.activateCategoryId = params.id;
       this.loadProducts();
@@ -35,7 +38,67 @@ export class CategoryProductsComponent implements OnInit {
   loadProducts(): void {
     this.productService.getProductsByCategoryId( this.activateCategoryId).subscribe({
       next: (res) => {
-        this.products = res; // Assuming the response contains a 'data' property with the products
+        this.products = res;
+        var head = document.getElementById('heading');
+        if(head != null)
+        {
+          if(this.activateCategoryId == 1)
+          {
+            head.innerHTML="Fruits";
+          }
+          else if(this.activateCategoryId ==2) 
+          {
+            head.innerHTML="Vegitables";
+          }
+          else if(this.activateCategoryId==3)
+          {
+            head.innerHTML="Instant food";
+          }
+          else if(this.activateCategoryId==4)
+          {
+            head.innerHTML="Cleaning Essentials";
+          }
+          else if(this.activateCategoryId==5)
+          {
+            head.innerHTML="Snakes";
+          }
+          else if(this.activateCategoryId==7)
+          {
+            head.innerHTML="Body Care";
+          }
+          else if(this.activateCategoryId==11)
+          {
+            head.innerHTML="Pet Care";
+          }
+          else if(this.activateCategoryId==12)
+          {
+            head.innerHTML="Milk Items";
+          }
+          else if(this.activateCategoryId==13)
+          {
+            head.innerHTML="Oil Item";
+          }
+          else if(this.activateCategoryId==15)
+          {
+            head.innerHTML="Rice & Atta";
+          }
+          else if(this.activateCategoryId==16)
+          {
+            head.innerHTML="Pharma & Hygine";
+          }
+          else if(this.activateCategoryId==17)
+          {
+            head.innerHTML="Juice";
+          }
+          else if(this.activateCategoryId==18)
+          {
+            head.innerHTML="Pulses";
+          }
+          else if(this.activateCategoryId==15)
+          {
+            head.innerHTML="Pet Care";
+          }
+        }
       },
       error: (error) => {
         console.error('Error loading products:', error);
@@ -83,11 +146,33 @@ cusid = this.intValue;
     });
   }
 }
+searchQuery: string = '';
+filterItems() {
+  this.productService.getProductByName(this.searchQuery).subscribe(
+    (data: any[]) => {
+      this.ProductList = data;
+      const head = document.getElementById('heading');
+      if (head !== null) {
+        if (this.searchQuery == null) {
+          head.innerHTML = "No Items Found";
+        }
+      }
+    },
+    error => {
+      console.error("Error fetching products:", error);
+    }
+  );
+}
 
-  getQuantity(product: any): number {
+
+
+getQuantity(product: any): number {
     return product.quantity || 1;
   }
 
+  
+
+ 
 
   
   increment(product: any) {

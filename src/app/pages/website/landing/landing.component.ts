@@ -164,6 +164,11 @@ checkoutClicked: boolean = false;
     )
   }
 
+  navigateToLogin() {
+    
+    this.router.navigate(['/login']);
+  }
+
 
   getCategories(): void {
     this.productService.getCategories().subscribe(
@@ -191,6 +196,7 @@ checkoutClicked: boolean = false;
   navigateToProducts(id: number): void {
     this.router.navigate(['/products', id]);
   }
+  
 
   calculateTotal(): number {
     let total = 0;

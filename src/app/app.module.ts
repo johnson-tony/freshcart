@@ -24,6 +24,7 @@ import { OfferCardComponent } from './shared/components/offer-card/offer-card.co
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SalesComponent } from './pages/admin/sales/sales.component';
+import { AboutUsComponent } from './pages/website/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SalesComponent } from './pages/admin/sales/sales.component';
    CardComponent,
    OfferCardComponent,
    SalesComponent,
+   AboutUsComponent,
   
   
     

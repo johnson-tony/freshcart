@@ -21,7 +21,7 @@ export class WebProductsComponent {
   filteredProductsList!: any[];
   isAddToCartApiCallInProgress: boolean = false;
   currentIndex = 0;
-
+  filteredItems: any[] = [];
   loginObj:LoginObj={
     custId: 0,
     phoneNumber: 0,
@@ -29,9 +29,7 @@ export class WebProductsComponent {
     password: ''
 
 }
-  
-
-  
+ 
   registerObj: RegisterObj = {
     custId: 0,
     custName: '',
@@ -49,7 +47,26 @@ export class WebProductsComponent {
     this.localStorageId = localStorage.getItem('CusID') as string;
     this.intValue = parseInt(this.localStorageId);
   }
-   
+  searchQuery: string = '';
+
+filterItems() {
+  this.productService.getProductByName(this.searchQuery).subscribe(
+    (data: any[]) => {
+      this.ProductList = data;
+      const head = document.getElementById('heading');
+      if (head !== null) {
+        if (this.searchQuery == null) {
+          head.innerHTML = "No Items Found";
+        }
+      }
+    },
+    error => {
+      console.error("Error fetching products:", error);
+    }
+  );
+}
+
+    
   customerId:number=0;
   localStorageId:string='';
   intValue:number=0;

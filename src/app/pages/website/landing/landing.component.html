@@ -6,18 +6,19 @@
               <span class="textBlur" alt="">FreshCart</span>
           </a>
 
-          <!-- Toggler button for collapsed menu -->
+          
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
               aria-expanded="false" aria-label="Toggle navigation">
-              <!-- Toggle button icon -->
+              
               <span class="navbar-toggler-icon"></span>
           </button>
+          
 
-          <!-- Nav Items -->
+    
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
-                  <!-- Dropdown for Categories -->
+                  
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1 text-danger" href="#"
                           id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -39,9 +40,8 @@
                           Pages
                       </a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="#">About Us</a></li>
-                          <li><a class="dropdown-item" href="#">Contact Us</a></li>
-                          <li><a class="dropdown-item" href="#">Terms and Conditions</a></li>
+                          <li><a class="dropdown-item" href="aboutUs">About Us</a></li>
+                         
                       </ul>
                   </li>
 
@@ -157,12 +157,17 @@
                                   Login
                               </button>
                           </li>
-                          <!-- Register button -->
+                         
                           <li>
                               <button class="dropdown-item redButton" type="button" (click)="openRegisterModel()">
                                   Register
                               </button>
                           </li>
+                          <li>
+                            <button class="dropdown-item redButton" type="button" (click)="navigateToLogin()">
+                                Admin Login
+                            </button>
+                        </li>
                       </ul>
                   </li>
               </ul>
@@ -248,9 +253,7 @@
                   >
                   <div class="validation-error" *ngIf="UserPassword.touched || UserPassword.dirty">
                     <div *ngIf="UserPassword.errors?.['required']">Password is required</div>
-                    <div *ngIf="UserPassword.errors?.['pattern']">Password must contain at least one uppercase letter, one
-                      lowercase letter, one digit, and one special character (#?!&#64;$%^&*-).</div>
-                  </div>
+                    
                   <div class="mt-2">
                     
                   </div>

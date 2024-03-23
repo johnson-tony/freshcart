@@ -13,10 +13,9 @@ export class CheckoutComponent implements OnInit {
   cartList: any[] = [];
    constructor(private productService: ProductService, private router: Router,private toastr: ToastrService) {}
  ngOnInit(): void {
+  const local = localStorage.getItem('CusID') as string;
+  this.customerId = parseInt(local);
    this.getCartProductbyCustomerId(this.customerId);
-   const local = localStorage.getItem('CusID') as string;
-   this.customerId = parseInt(local);
-   
   }
   total:number=0;
  customerId:number=0;
@@ -34,16 +33,13 @@ export class CheckoutComponent implements OnInit {
   DeliveryLandMark: ''
 };
 
- getCartProductbyCustomerId(custId: number){
-    this.productService.getCartDataByCustomerId(custId).subscribe(
-      (data:any[])=>{
-        this.cartList=data;
-        if (!this.cartList|| this.cartList.length === 0) {
-         
-        }
-      }
-    )
-  }
+getCartProductbyCustomerId(custId: number){
+  this.productService.getCartDataByCustomerId(custId).subscribe(
+    (data:any[])=>{
+      this.cartList=data;
+    }
+  )
+}
 
   remove(cartId: number ) {
     this.productService.removeProductByCartId(cartId).subscribe(

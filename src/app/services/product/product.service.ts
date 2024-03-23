@@ -37,6 +37,10 @@ export class ProductService {
   CreateCategory(obj: any): Observable<any>{
     return this.http.post<any>('https://localhost:7279/Categories/api/CreateCategories', obj);
   }
+
+  getCategoriesByCategoryId(categoryId: number): Observable<any[]> {
+    return this.http.get<any[]>(`https://localhost:7279/Categories/GetCategories/${categoryId}`);
+  }
   deleteCategories(categoryId: number): Observable<any> {
     return this.http.delete<any>(`https://localhost:7279/Categories/${categoryId}`);
   }
@@ -57,5 +61,15 @@ export class ProductService {
   getAllCustomers(): Observable<any[]> {
     return this.http.get<any[]>('https://localhost:7279/api/CustomerRegisters');
   }
+ 
+  getAllSales(): Observable<any[]> {
+    return this.http.get<any[]>('https://localhost:7279/api/AddToCarts/api/GetAllSales');
+  }
+
+  getProductByName(name:string): Observable<any[]> {
+    return this.http.get<any[]>(`https://localhost:7279/api/Products/GetProductByName/${name}`);
+  }
+
+  
 
 }

@@ -1,26 +1,32 @@
+
+<button class="button-85"(click)="exportTable()">Report</button>
+
 <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Sales Date</th>
-        <th>Sale id</th>
+        <th>Sale Id </th>
+        <th>Sale Date</th>
         <th>Customer id</th> 
         <th>Customer Name</th>
-        <th>Amount </th>
+        <th>Payment Method</th>
+        <th> Total Amount </th>
         <th>Delivery Address</th>
         <th>City</th>
-        <th><div>
-          <input class="form-check-input" type="checkbox" id="checkboxNoLabel" [(ngModel)]="isChecked" (click)="onCheckboxClick()">
-        </div></th>
-        
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let sales of SalesList; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{sales.SaleI}}</td>
-        <td> 
-        
-        </td>
+      <tr *ngFor="let sales of SalesList;let i = index ">
+        <td>{{ i+1 }}</td>
+        <td>{{sales.saleDate}}</td>
+        <td>{{sales.custId}} </td>
+        <td>{{sales.custName}} </td>
+        <td>{{sales.paymentNaration}} </td>
+        <td>{{sales.totalInvoiceAmount}} </td>
+        <td>{{sales.deliveryAddress1}} </td>
+        <td>{{sales.deliveryCity}} </td>
+        <td><div>
+          <input class="form-check-input" type="checkbox" id="checkboxNoLabel" [(ngModel)]="isChecked" (click)="onCheckboxClick()">
+        </div></td>
       </tr>
     </tbody>
   </table>
