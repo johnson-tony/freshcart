@@ -70,6 +70,8 @@ export class ProductService {
     return this.http.get<any[]>(`https://localhost:7279/api/Products/GetProductByName/${name}`);
   }
 
-  
+  getProductById(id:number,name:string): Observable<any[]> {
+    return this.http.get<any[]>(`https://localhost:7279/Categories/API/GetByCategoryID?id=${id}&name=${name}`);
+  }
 
 }

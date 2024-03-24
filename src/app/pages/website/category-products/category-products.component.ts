@@ -148,12 +148,13 @@ cusid = this.intValue;
 }
 searchQuery: string = '';
 filterItems() {
-  this.productService.getProductByName(this.searchQuery).subscribe(
+  this.productService.getProductById(this.activateCategoryId,this.searchQuery).subscribe(
     (data: any[]) => {
-      this.ProductList = data;
+      this.products = data;
       const head = document.getElementById('heading');
+      
       if (head !== null) {
-        if (this.searchQuery == null) {
+        if (this.products.length == 0) {
           head.innerHTML = "No Items Found";
         }
       }

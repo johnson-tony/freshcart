@@ -55,8 +55,9 @@ filterItems() {
       this.ProductList = data;
       const head = document.getElementById('heading');
       if (head !== null) {
-        if (this.searchQuery == null) {
+        if (this.ProductList.length==0) {
           head.innerHTML = "No Items Found";
+          
         }
       }
     },
