@@ -148,6 +148,8 @@ checkoutClicked: boolean = false;
       loginicon.style.display = 'none'; // Hide the login icon
     }
         this.toastr.success("Login successful");
+        this.loginObj.phoneNumber = 0;
+        this.loginObj.password = ''; 
         this.closeLoginModel();
       },
       error => {

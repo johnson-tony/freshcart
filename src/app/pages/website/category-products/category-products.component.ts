@@ -151,6 +151,10 @@ filterItems() {
   this.productService.getProductById(this.activateCategoryId,this.searchQuery).subscribe(
     (data: any[]) => {
       this.products = data;
+      setTimeout(() => {
+            
+        this.loadProducts();
+      }, 7000); 
       const head = document.getElementById('heading');
       
       if (head !== null) {
@@ -158,6 +162,7 @@ filterItems() {
           head.innerHTML = "No Items Found";
         }
       }
+      this.searchQuery = '';
     },
     error => {
       console.error("Error fetching products:", error);

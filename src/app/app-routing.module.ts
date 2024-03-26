@@ -25,7 +25,8 @@ export const routes: Routes = [
        {path:'products',component: ProductsComponent},
        {path:'categories',component: CategoriesComponent},
        {path:'customer',component: CustomerComponent},
-       {path:'sales',component:SalesComponent}]
+       {path:'sales',component:SalesComponent},
+      ]
 },
 
 {path:'',component:LandingComponent,
@@ -34,7 +35,7 @@ export const routes: Routes = [
       {path:'products/:id',component:CategoryProductsComponent},
       {path:'checkout',component:CheckoutComponent},
       {path:'aboutUs',component:AboutUsComponent},
-      {path:'login',component: LoginComponent}
+      
   ],
 }
 ];

@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 export class CategoriesComponent implements OnInit {
 
   CategoryList: any[] = [];
+  obj: any;
    
   constructor(private productService: ProductService,private toastr:ToastrService) {}
   inputValue: string = '';
@@ -60,9 +61,11 @@ export class CategoriesComponent implements OnInit {
       if (res) {
         if(this.CategoryId == 0){
           this.toastr.success("Category created successfully");
+          
         }
         else{
           this.toastr.success("Category Updated successfully");
+          
         }
         this.getCategories();
       }

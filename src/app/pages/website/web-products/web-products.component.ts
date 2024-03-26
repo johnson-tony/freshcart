@@ -50,22 +50,31 @@ export class WebProductsComponent {
   searchQuery: string = '';
 
 filterItems() {
+
   this.productService.getProductByName(this.searchQuery).subscribe(
     (data: any[]) => {
       this.ProductList = data;
+      setTimeout(() => {
+            
+        this.getProducts();
+      }, 7000); 
       const head = document.getElementById('heading');
       if (head !== null) {
         if (this.ProductList.length==0) {
-          head.innerHTML = "No Items Found";
+           head.innerHTML = "No Items Found";
+           }
+          }
+          this.searchQuery = '';
+          this.ProductList = data;
+          },
           
-        }
-      }
-    },
     error => {
       console.error("Error fetching products:", error);
     }
   );
 }
+
+
 
     
   customerId:number=0;

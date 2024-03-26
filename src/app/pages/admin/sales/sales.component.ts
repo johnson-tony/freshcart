@@ -21,10 +21,10 @@ export class SalesComponent implements OnInit{
     const csvContent = this.convertArrayOfObjectsToCSV(rows);
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   
-    if ((navigator as any).msSaveBlob) { // Use type assertion
-      (navigator as any).msSaveBlob(blob, filename); // Use type assertion
+    if ((navigator as any).msSaveBlob) { 
+      (navigator as any).msSaveBlob(blob, filename); 
     } else {
-      // Handle file download for other browsers
+      
       const link = document.createElement('a');
       if (link.download !== undefined) {
         const url = URL.createObjectURL(blob);
