@@ -1,8 +1,9 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light nav-yellow border-bottom border-top p-0">
+    
       <div class="container">
-          <a class="navbar-brand fs-4 fw-bold" href="#">
-              <i class="fa fa-cart-shopping fs-4" style="color: #f54242;"></i>
+      <a class="navbar-brand fs-4 fw-bold" href="#">
+              <i class="fas fa-shopping-cart fa-fw fa-xl"></i>
               <span class="textBlur" alt="">FreshCart</span>
           </a>
 
@@ -20,13 +21,13 @@
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center">
                   
                   <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1 text-danger" href="#"
+                      <a class="nav-link dropdown-toggle fw-semibold text-uppercase me-1 text-danger cato" href="#"
                           id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Categories
                       </a>
-                      <ul class="dropdown-menu">
-                          <li *ngFor="let category of CategoryList" class="position-relative">
-                              <a class="dropdown-item hand" (click)="navigateToProducts(category.categoryId)">
+                      <ul class="dropdown-menu cate">
+                          <li *ngFor="let category of CategoryList" class="position-relative da">
+                              <a class="dropdown-item hand list" (click)="navigateToProducts(category.categoryId)">
                                   {{ category.categoryName }}
                               </a>
                           </li>
@@ -183,7 +184,7 @@
           <!-- Modal Header -->
           <div class="modal-header">
               <h4 class="modal-title">Register</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeRegisterModel()"></button>
+              <button type="button" class="btn-close reg" data-bs-dismiss="modal" (click)="closeRegisterModel()"></button>
           </div>
           <!-- Modal body -->
           <div class="modal-body">
@@ -225,7 +226,7 @@
           </div>
           <!-- Modal footer -->
           <div class="modal-footer d-flex justify-content-center">
-              <button type="button" class="btn btn-danger mx-2" (click)="saveCustomer()">Register</button>
+              <button type="button" class="btn btn-danger mx-2 " (click)="saveCustomer()">Register</button>
               <button type="button" class="btn btn-info mx-2" (click)="closeRegisterModel()">Close</button>
           </div>
       </div>
@@ -238,17 +239,17 @@
       <div class="modal-content">
           <div class="modal-header">
               <h4 class="modal-title">Login</h4>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeLoginModel()"></button>
+              <button type="button" class="btn-close lo" data-bs-dismiss="modal" (click)="closeLoginModel()"></button>
           </div>
           <div class="modal-body">
               <div class="form-group">
                   <label for="loginMobileNo"   class="my-1 fw-semibold">Mobile No</label>
-                  <input type="tel" class="form-control" id="loginMobileNo" pInputText placeholder="Enter Your Mobile No"  #phone="ngModel" 
+                  <input type="tel" class="form-control costom-input" id="loginMobileNo" pInputText placeholder="Enter Your Mobile No"  #phone="ngModel" 
                   required [pattern]="phonePattern" [(ngModel)]="loginObj.phoneNumber" name="phoneNumber" >
               </div>
               <div class="form-group">
                   <label for="loginPassword"  class="my-1 fw-semibold">Password</label>
-                  <input type="password" class="form-control" id="loginPassword" pInputText placeholder="Enter Your Password"
+                  <input type="password" class="form-control costom-input" id="loginPassword" pInputText placeholder="Enter Your Password"
                   #UserPassword="ngModel" required [pattern]="passwordPattern" [(ngModel)]="loginObj.password" name="password" 
                   >
                   <div class="validation-error" *ngIf="UserPassword.touched || UserPassword.dirty">
@@ -261,7 +262,7 @@
           </div>
           <div class="modal-footer d-flex justify-content-center">
               <button type="button" class="btn btn-primary" (click)="loginCustomer()">Login</button>
-              <button type="button" class="btn btn-secondary" (click)="closeLoginModel()">Close</button>
+              <button type="button" class="btn btn-secondary cl" (click)="closeLoginModel()">Close</button>
           </div>
       </div>
   </div>

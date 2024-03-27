@@ -9,9 +9,8 @@ import { Router } from '@angular/router';
 export class LayoutComponent implements OnInit {
   constructor(private router: Router) {}
 
-  navigateToProduct() {
-    this.router.navigate(['/Allproducts']);
-  }
+  
 
+ 
   ngOnInit(): void {}
 }

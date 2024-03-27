@@ -1,68 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-
 import { ProductService } from 'src/app/services/product/product.service';
+import { ExportService } from 'src/app/services/export/export.service'; 
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.component.html',
   styleUrls: ['./sales.component.css']
 })
-export class SalesComponent implements OnInit{
-  SalesList:any[]=[];
+export class SalesComponent implements OnInit {
+  SalesList: any[] = [];
   isChecked = false;
-  constructor(private productService: ProductService,private toastr:ToastrService){}
+
+  constructor(
+    private productService: ProductService,
+    private toastr: ToastrService,
+    private exportService: ExportService 
+  ) {}
 
   ngOnInit(): void {
     this.getSales();
   }
-  
-  exportToCSV(filename: string, rows: any[]) {
-    const csvContent = this.convertArrayOfObjectsToCSV(rows);
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  
-    if ((navigator as any).msSaveBlob) { 
-      (navigator as any).msSaveBlob(blob, filename); 
-    } else {
-      
-      const link = document.createElement('a');
-      if (link.download !== undefined) {
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', filename);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    }
-  }
-  
 
-  private convertArrayOfObjectsToCSV(data: any[]): string {
-    const csv = data.map(row => Object.values(row).join(',')).join('\n');
-    return 'data:text/csv;charset=utf-8,' + csv;
-  }
-  exportTable() {
-    // You may need to modify this depending on your data structure
-    this.exportToCSV('table_data.csv', this.SalesList);
-  }
-  
   getSales(): void {
     this.productService.getAllSales().subscribe(
       (data: any[]) => {
         this.SalesList = data;
-      }, 
+      },
       error => {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching sales:", error);
       }
     );
   }
-  
 
-
-  onCheckboxClick() {
-    this.toastr.success('Order Delivered!');
-  }
-
+  title = 'export-excel';
+    fileName = 'ExportExce.xlsx';
+    exportexcel(): void {
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.SalesList);
+    
+      
+      const headerColumns = Object.keys(this.SalesList[0]); 
+      headerColumns.forEach((col, index) => {
+        const cellAddress = XLSX.utils.encode_cell({ r: 0, c: index });
+        const cell = ws[cellAddress];
+        cell.s = { bold: true }; 
+      });
+    
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+      XLSX.writeFile(wb, this.fileName);
+    }
+    
 }
+
+

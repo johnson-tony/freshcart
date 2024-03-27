@@ -64,9 +64,46 @@ a:link{
 }
 .btn-secondary{
   position: relative;
-  left: 22%;
+
 }
 .cartImg {
   height: 50px !important;
   width: 80px !important;
 }
+.back{
+  margin-left: 30px;
+}
+.cato{
+  color:black !important;
+}
+.list{
+  color: black !important;
+}
+.da:active{
+    background: #81C408 !important;
+  }
+  .reg{
+    color:red;
+    background-color: red;
+  }
+  .lo{
+    color:red;
+    background-color: red;
+  }
+  .cl{
+    margin-right:5%;
+  }
+  .custom-input {
+    border: 2px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-input:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+ 

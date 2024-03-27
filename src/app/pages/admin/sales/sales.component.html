@@ -1,5 +1,5 @@
 
-<button class="button-85"(click)="exportTable()">Report</button>
+<button class="button-85" (click)=" exportexcel()">Report</button>
 
 <table class="table table-bordered">
     <thead>
@@ -24,9 +24,7 @@
         <td>{{sales.totalInvoiceAmount}} </td>
         <td>{{sales.deliveryAddress1}} </td>
         <td>{{sales.deliveryCity}} </td>
-        <td><div>
-          <input class="form-check-input" type="checkbox" id="checkboxNoLabel" [(ngModel)]="isChecked" (click)="onCheckboxClick()">
-        </div></td>
+        <td></td>
       </tr>
     </tbody>
   </table>

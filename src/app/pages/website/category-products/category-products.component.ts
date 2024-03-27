@@ -152,7 +152,7 @@ filterItems() {
     (data: any[]) => {
       this.products = data;
       setTimeout(() => {
-            
+         const head = document.getElementById('heading');    
         this.loadProducts();
       }, 7000); 
       const head = document.getElementById('heading');

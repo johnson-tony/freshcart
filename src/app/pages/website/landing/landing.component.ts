@@ -14,6 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./landing.component.css']
 })
 export class LandingComponent implements OnInit {
+  location: any;
 toggleDropdown() {
   this.showDropdown = !this.showDropdown;
 }
@@ -107,11 +108,13 @@ checkoutClicked: boolean = false;
            
             this.toastr.success("Registration Completed. Please login.");
             this.closeRegisterModel();
+            this.loginReset()
           }
         },
         (error) => {
           console.error("Error occurred while registering customer:", error);
           this.toastr.warning("Registration failed. This Phone Number Already Registered");
+          this.loginReset()
         }
       );
     }
@@ -122,6 +125,7 @@ checkoutClicked: boolean = false;
     if (loginModal) {
       loginModal.classList.add('show');
       loginModal.style.display = 'block';
+       
     }
   }
 
@@ -130,6 +134,7 @@ checkoutClicked: boolean = false;
     if (loginModal) {
       loginModal.classList.remove('show');
       loginModal.style.display = 'none';
+      this.loginReset() 
     }
   }
 
@@ -149,7 +154,8 @@ checkoutClicked: boolean = false;
     }
         this.toastr.success("Login successful");
         this.loginObj.phoneNumber = 0;
-        this.loginObj.password = ''; 
+        this.loginObj.password = '';
+        this.loginReset() 
         this.closeLoginModel();
       },
       error => {
@@ -232,4 +238,12 @@ checkoutClicked: boolean = false;
     localStorage.clear(); // Clear all items in local storage
     window.location.reload(); // Reload the page
   }
-}
+  loginReset() {
+    this.loginObj.custId = 0;
+    this.loginObj.custName = '';
+    this.loginObj.phoneNumber = 0;
+    this.loginObj.password = '';
+  }
+  
+  }
+

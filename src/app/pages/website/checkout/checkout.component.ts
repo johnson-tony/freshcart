@@ -75,7 +75,7 @@ getCartProductbyCustomerId(custId: number){
     this.productService.PlaceonOrder(PlaceonOrderObj).subscribe({
       next: (res) => {
         if (res) {
-          this.toastr.success('Order placed successfully! Your order will be delivered soon.');
+          this.toastr.success(' Your order will be delivered soon!');
           this.remove(this.cartList[0].cartId);
           this.productService.cartUpdated$.next(true);
          this.cartList = []; 
