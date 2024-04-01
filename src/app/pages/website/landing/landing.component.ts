@@ -222,7 +222,7 @@ checkoutClicked: boolean = false;
         // Call getCartProductbyCustomerId after successfully removing the product
       },
       (error) => {
-        // Handle error if any
+        
         console.error("Error removing item:", error);
         
       }

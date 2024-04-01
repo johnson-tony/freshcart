@@ -1,0 +1,50 @@
+.footer {
+    background-color:lightgrey;
+    color: black;
+    padding: 30px 0px;
+    margin-bottom: -30px;
+    max-height: 100%;
+  }
+  
+  .footer h5 {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .footer ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer ul li a {
+    color:black;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  
+  .footer ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer ul li a i {
+    color: #fff;
+    text-decoration: none;
+    font-size: 28px;
+    margin-right: 40px;
+    cursor: pointer;
+  }
+  
+  
+  
+  #foot{
+    
+        max-width: 960px; 
+        margin: 0 auto; 
+        text-align: center; 
+    
+  }
+  

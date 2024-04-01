@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SalesComponent } from './pages/admin/sales/sales.component';
 import { AboutUsComponent } from './pages/website/about-us/about-us.component';
+import { FooterComponent } from './pages/website/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AboutUsComponent } from './pages/website/about-us/about-us.component';
    OfferCardComponent,
    SalesComponent,
    AboutUsComponent,
+   FooterComponent,
   
   
     
