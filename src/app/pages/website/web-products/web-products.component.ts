@@ -106,12 +106,10 @@ filterItems() {
         },
         error: (error) => {
           console.error('Error adding product to cart:', error);
-          // Handle error here
         }
       });
     }
   }
-
   navigateToProducts(categoryId: number) {
     this.router.navigate(['/products', categoryId]);
   }

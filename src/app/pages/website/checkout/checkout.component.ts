@@ -46,6 +46,7 @@ getCartProductbyCustomerId(custId: number){
       (res: any) => {
         this.productService.cartUpdated$.next(true);
         this.getCartProductbyCustomerId(this.customerId);
+      
       },
       (error) => {
        
@@ -79,8 +80,7 @@ getCartProductbyCustomerId(custId: number){
           this.remove(this.cartList[0].cartId);
           this.productService.cartUpdated$.next(true);
          this.cartList = []; 
-         
-         this.router.navigate(['/Allproducts']);
+          this.router.navigate(['/Allproducts'])
          if(this.cartList.length=0){
           this.router.navigate(['/Allproducts'])
           

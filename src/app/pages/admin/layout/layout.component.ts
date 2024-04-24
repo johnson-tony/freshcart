@@ -7,9 +7,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
+
   constructor(private router: Router) {}
 
-  
+  navigateToAllProducts() {
+    
+    if (this.router) {
+      
+      this.router.navigate(['Allproducts']);
+    } else {
+      console.error('Router is not defined.');
+    }
+  }
 
  
   ngOnInit(): void {}

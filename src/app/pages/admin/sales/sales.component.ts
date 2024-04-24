@@ -34,7 +34,8 @@ export class SalesComponent implements OnInit {
       }
     );
   }
-
+  
+ 
   title = 'export-excel';
     fileName = 'ExportExce.xlsx';
     exportexcel(): void {
